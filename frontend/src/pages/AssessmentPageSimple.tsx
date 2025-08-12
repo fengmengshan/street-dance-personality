@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { questionsApi, assessmentsApi } from '../services/api'
+import { completeLocalApi } from '../services/completeLocalApi'
 import { Question, Answer } from '../types'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
@@ -25,7 +25,7 @@ const AssessmentPageSimple: React.FC = () => {
     const loadQuestions = async () => {
       try {
         setIsLoading(true)
-        const response = await questionsApi.getRandom(62)
+        const response = await completeLocalApi.getQuestions()
         setQuestions(response.data)
       } catch (err) {
         setError(err instanceof Error ? err.message : '加载题目失败')
@@ -82,7 +82,7 @@ const AssessmentPageSimple: React.FC = () => {
 
     try {
       setIsSubmitting(true)
-      const response = await assessmentsApi.submit(answers)
+      const response = await completeLocalApi.submitAssessment(answers)
       navigate(`/result/${response.data.assessmentId}`)
     } catch (err) {
       setError(err instanceof Error ? err.message : '提交测评失败')

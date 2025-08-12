@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Search } from 'lucide-react'
-import { personalityTypesApi } from '../services/api'
+import { completeLocalApi } from '../services/completeLocalApi'
 import { PersonalityType } from '../types'
 import Card from '../components/ui/Card'
 import LoadingSpinner from '../components/ui/LoadingSpinner'
@@ -17,7 +17,7 @@ const PersonalityTypesPage: React.FC = () => {
     const loadPersonalityTypes = async () => {
       try {
         setIsLoading(true)
-        const response = await personalityTypesApi.getAll()
+        const response = await completeLocalApi.getPersonalityTypes()
         setPersonalityTypes(response.data)
       } catch (err) {
         setError(err instanceof Error ? err.message : '加载人格类型失败')

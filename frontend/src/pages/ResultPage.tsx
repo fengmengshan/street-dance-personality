@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Share2, RotateCcw, Star, TrendingUp } from 'lucide-react'
 import { useAssessmentStore } from '../store/useAssessmentStore'
-import { assessmentsApi } from '../services/api'
+import { completeLocalApi } from '../services/completeLocalApi'
 import { AssessmentResult } from '../services/api'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
@@ -37,7 +37,7 @@ const ResultPage: React.FC = () => {
         }
 
         // 否则从API获取
-        const response = await assessmentsApi.getResult(id)
+        const response = await completeLocalApi.getResult(id)
         setResult(response.data)
       } catch (err) {
         setError(err instanceof Error ? err.message : '获取结果失败')
@@ -54,7 +54,7 @@ const ResultPage: React.FC = () => {
 
     try {
       setIsSharing(true)
-      const response = await assessmentsApi.share(id)
+      const response = await completeLocalApi.share(id)
       
       if (navigator.share) {
         await navigator.share({

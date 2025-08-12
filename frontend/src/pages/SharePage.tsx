@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ExternalLink, Star } from 'lucide-react'
-import { assessmentsApi } from '../services/api'
+import { completeLocalApi } from '../services/completeLocalApi'
 import { AssessmentResult } from '../services/api'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
@@ -21,7 +21,7 @@ const SharePage: React.FC = () => {
 
       try {
         setIsLoading(true)
-        const response = await assessmentsApi.getResult(id)
+        const response = await completeLocalApi.getResult(id)
         setResult(response.data)
       } catch (err) {
         setError(err instanceof Error ? err.message : '获取结果失败')
