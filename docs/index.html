@@ -1,30 +1,145 @@
-<!DOCTYPE html> 
-<html lang="zh-CN"> 
-<head> 
-    <meta charset="UTF-8"> 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>街舞人格测评系统</title> 
-    <script src="https://cdn.tailwindcss.com"></script> 
-    <style> 
-        body { background: linear-gradient(135deg, #0F172A 0); } 
-        .card { background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0); } 
-    </style> 
-</head> 
-<body class="min-h-screen text-white"> 
-    <div class="container mx-auto px-4 py-8"> 
-        <div class="text-center mb-12"> 
-            <h1 class="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">街舞人格测评系统</h1> 
-            <p class="text-xl text-gray-300">发现你的街舞灵魂</p> 
-        </div> 
-        <div class="max-w-2xl mx-auto card rounded-2xl p-8"> 
-            <h2 class="text-2xl font-bold mb-6">系统正在开发中...</h2> 
-            <div class="bg-purple-500/20 border border-purple-500/30 rounded-lg p-4"> 
-                <h3 class="font-bold mb-2">即将推出的功能：</h3> 
-                <ul class="list-disc list-inside space-y-1 text-sm"> 
-                    <li>个性化舞种推荐</li> 
-                </ul> 
-            </div> 
-        </div> 
-    </div> 
-</body> 
-</html> 
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>街舞人格测评系统</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { 
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); 
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+        .card { 
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%); 
+            backdrop-filter: blur(10px);
+        }
+        .glow-text {
+            background: linear-gradient(45deg, #8B5CF6, #EC4899, #06B6D4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #8B5CF6, #EC4899);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen text-white">
+    <div class="container mx-auto px-4 py-8">
+        <!-- 头部 -->
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold mb-4 glow-text">🎭 街舞人格测评系统</h1>
+            <p class="text-xl text-gray-300">发现你的街舞灵魂</p>
+        </div>
+
+        <!-- 主要内容 -->
+        <div class="max-w-4xl mx-auto">
+            <div class="card rounded-2xl p-8 mb-8 border border-purple-500/20">
+                <h2 class="text-3xl font-bold mb-6 text-center">🚀 系统即将上线</h2>
+                <p class="text-gray-300 mb-8 text-center text-lg">
+                    我们正在为你打造最棒的街舞人格测评体验！基于科学的心理学理论，结合街舞文化特色。
+                </p>
+                
+                <!-- 功能预览 -->
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-purple-500/10 border border-purple-500/30 rounded-lg p-6">
+                        <h3 class="font-bold mb-4 text-purple-300">🧠 科学测评</h3>
+                        <ul class="space-y-2 text-sm text-gray-300">
+                            <li>• 62道专业街舞题目</li>
+                            <li>• 基于大五人格理论</li>
+                            <li>• 涵盖Cypher、Battle等场景</li>
+                            <li>• 李克特5点量表评分</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-pink-500/10 border border-pink-500/30 rounded-lg p-6">
+                        <h3 class="font-bold mb-4 text-pink-300">🎨 创新体验</h3>
+                        <ul class="space-y-2 text-sm text-gray-300">
+                            <li>• 12种创新人格类型</li>
+                            <li>• 如"即兴诗人"、"暗号玩家"</li>
+                            <li>• 个性化舞种推荐</li>
+                            <li>• 精美的结果展示</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 人格类型预览 -->
+                <div class="bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-lg p-6 mb-8">
+                    <h3 class="font-bold mb-4 text-center">✨ 12种街舞人格类型预览</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+                        <div class="text-center p-2 bg-white/5 rounded">🎭 即兴诗人</div>
+                        <div class="text-center p-2 bg-white/5 rounded">🔍 暗号玩家</div>
+                        <div class="text-center p-2 bg-white/5 rounded">🗺️ 无地图探险家</div>
+                        <div class="text-center p-2 bg-white/5 rounded">🎵 节拍猎人</div>
+                        <div class="text-center p-2 bg-white/5 rounded">🪞 镜面魔术师</div>
+                        <div class="text-center p-2 bg-white/5 rounded">⚡ 能量传递者</div>
+                        <div class="text-center p-2 bg-white/5 rounded">👁️ 静默观察家</div>
+                        <div class="text-center p-2 bg-white/5 rounded">🤝 团队粘合剂</div>
+                        <div class="text-center p-2 bg-white/5 rounded">👑 舞台征服者</div>
+                        <div class="text-center p-2 bg-white/5 rounded">💎 技巧收藏家</div>
+                        <div class="text-center p-2 bg-white/5 rounded">🌉 文化桥梁</div>
+                        <div class="text-center p-2 bg-white/5 rounded">🚢 灵魂摆渡人</div>
+                    </div>
+                </div>
+
+                <!-- 开发进度 -->
+                <div class="text-center">
+                    <div class="bg-cyan-500/10 border border-cyan-500/30 rounded-lg p-6 mb-6">
+                        <h3 class="font-bold mb-4 text-cyan-300">🔧 开发进度</h3>
+                        <div class="w-full bg-gray-700 rounded-full h-3 mb-4">
+                            <div class="bg-gradient-to-r from-purple-500 to-pink-500 h-3 rounded-full" style="width: 85%"></div>
+                        </div>
+                        <p class="text-sm text-gray-300">85% 完成 - 即将上线！</p>
+                    </div>
+                    
+                    <button class="btn-primary px-8 py-4 rounded-xl font-bold text-lg shadow-lg">
+                        🔔 通知我上线
+                    </button>
+                </div>
+            </div>
+
+            <!-- 联系信息 -->
+            <div class="text-center text-gray-400 text-sm">
+                <p>© 2024 街舞人格测评系统 - 发现你的舞蹈灵魂</p>
+                <p class="mt-2">基于心理学理论与街舞文化的科学测评平台</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 简单的交互效果
+        document.querySelector('.btn-primary').addEventListener('click', function() {
+            alert('感谢关注！系统即将上线，敬请期待！🎉');
+        });
+
+        // 添加一些动画效果
+        const cards = document.querySelectorAll('.card');
+        cards.forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+            card.style.animation = 'fadeInUp 0.6s ease forwards';
+        });
+
+        // CSS动画
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
