@@ -243,7 +243,7 @@ const AssessmentPage: React.FC = () => {
         )}
         
         {/* 调试信息 */}
-        {process.env.NODE_ENV === 'development' && (
+        {(process as any)?.env?.NODE_ENV === 'development' && (
           <div className="mt-4 p-2 bg-gray-800 text-xs text-gray-300 rounded">
             <div>当前题目索引: {currentQuestionIndex}</div>
             <div>总题目数: {questions.length}</div>

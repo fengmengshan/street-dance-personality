@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Share2, Download, RotateCcw, Star, TrendingUp } from 'lucide-react'
+import { Share2, RotateCcw, Star, TrendingUp } from 'lucide-react'
 import { useAssessmentStore } from '../store/useAssessmentStore'
 import { assessmentsApi } from '../services/api'
 import { AssessmentResult } from '../services/api'

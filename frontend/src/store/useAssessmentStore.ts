@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+// import { persist } from 'zustand/middleware'
 import { Question, Answer, PersonalityProfile } from '../types'
 
 interface AssessmentState {

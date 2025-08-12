@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { motion } from 'framer-motion'
+// import { motion } from 'framer-motion'
 import { Music, Users, Home, Sparkles } from 'lucide-react'
 
 interface LayoutProps {

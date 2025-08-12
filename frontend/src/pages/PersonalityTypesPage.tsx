@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { Search, Filter } from 'lucide-react'
+import { Search } from 'lucide-react'
 import { personalityTypesApi } from '../services/api'
 import { PersonalityType } from '../types'
 import Card from '../components/ui/Card'
