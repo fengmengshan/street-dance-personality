@@ -177,19 +177,60 @@
                         </div>
                     </div>
 
-                    <!-- 特征展示 -->
-                    <div class="mb-6">
-                        <h3 class="font-bold text-white mb-3">✨ 你的特征</h3>
-                        <div id="characteristicsList" class="space-y-2">
-                            <!-- 特征列表将通过JavaScript生成 -->
+                    <!-- 详细特征分析 -->
+                    <div class="space-y-6">
+                        <!-- 核心特征 -->
+                        <div>
+                            <h3 class="font-bold text-white mb-3 flex items-center">
+                                <span class="text-yellow-400 mr-2">⭐</span>核心特征
+                            </h3>
+                            <div id="characteristicsList" class="space-y-2">
+                                <!-- 特征列表将通过JavaScript生成 -->
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- 推荐舞种 -->
-                    <div>
-                        <h3 class="font-bold text-white mb-3">🎵 推荐舞种</h3>
-                        <div id="recommendedStyles" class="flex flex-wrap gap-2">
-                            <!-- 推荐舞种将通过JavaScript生成 -->
+                        <!-- 优势分析 -->
+                        <div>
+                            <h3 class="font-bold text-white mb-3 flex items-center">
+                                <span class="text-green-400 mr-2">💪</span>你的优势
+                            </h3>
+                            <div id="strengthsList" class="space-y-2">
+                                <!-- 优势列表将通过JavaScript生成 -->
+                            </div>
+                        </div>
+
+                        <!-- 推荐舞种 -->
+                        <div>
+                            <h3 class="font-bold text-white mb-3 flex items-center">
+                                <span class="text-purple-400 mr-2">🎵</span>推荐舞种
+                            </h3>
+                            <div id="recommendedStyles" class="flex flex-wrap gap-2 mb-3">
+                                <!-- 推荐舞种将通过JavaScript生成 -->
+                            </div>
+                            <p id="styleExplanation" class="text-sm text-gray-400">
+                                <!-- 舞种推荐解释 -->
+                            </p>
+                        </div>
+
+                        <!-- 团队角色 -->
+                        <div>
+                            <h3 class="font-bold text-white mb-3 flex items-center">
+                                <span class="text-cyan-400 mr-2">👥</span>团队角色
+                            </h3>
+                            <div class="bg-cyan-500/10 border border-cyan-500/30 rounded-lg p-4">
+                                <div id="teamRole" class="font-medium text-cyan-300 mb-2">团队角色</div>
+                                <div id="teamRoleDescription" class="text-sm text-gray-300">角色描述</div>
+                            </div>
+                        </div>
+
+                        <!-- 发展建议 -->
+                        <div>
+                            <h3 class="font-bold text-white mb-3 flex items-center">
+                                <span class="text-orange-400 mr-2">🚀</span>发展建议
+                            </h3>
+                            <div id="developmentSuggestions" class="space-y-2">
+                                <!-- 发展建议将通过JavaScript生成 -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -221,60 +262,124 @@
     </div>
 
     <script>
-        // 简化的题目数据（5道示例题目）
+        // 完整的62道题目数据
         const questions = [
-            {
-                id: '1',
-                content: '在Cypher中，我更喜欢尝试从未做过的新动作，即使可能失败',
-                category: 'CYPHER_INTERACTION',
-                dimension: 'OPENNESS',
-                isReverse: false,
-                scenarioType: 'CYPHER'
-            },
-            {
-                id: '2',
-                content: '我会制定详细的练习计划并严格执行',
-                category: 'LEARNING_STYLE',
-                dimension: 'CONSCIENTIOUSNESS',
-                isReverse: false,
-                scenarioType: 'PRACTICE'
-            },
-            {
-                id: '3',
-                content: '在Cypher中，我喜欢第一个进圈跳舞',
-                category: 'CYPHER_INTERACTION',
-                dimension: 'EXTRAVERSION',
-                isReverse: false,
-                scenarioType: 'CYPHER'
-            },
-            {
-                id: '4',
-                content: '在Cypher中，我会鼓励和支持其他舞者',
-                category: 'CYPHER_INTERACTION',
-                dimension: 'AGREEABLENESS',
-                isReverse: false,
-                scenarioType: 'CYPHER'
-            },
-            {
-                id: '5',
-                content: '在重要的Battle前，我会感到非常紧张',
-                category: 'BATTLE_PERFORMANCE',
-                dimension: 'NEUROTICISM',
-                isReverse: false,
-                scenarioType: 'BATTLE'
-            }
+            // OPENNESS 开放性 (12题)
+            { id: '1', content: '在Cypher中，我更喜欢尝试从未做过的新动作，即使可能失败', category: 'CYPHER_INTERACTION', dimension: 'OPENNESS', isReverse: false, scenarioType: 'CYPHER' },
+            { id: '2', content: '我经常会想象如何将不同舞种的元素融合在一起', category: 'CREATIVE_EXPRESSION', dimension: 'OPENNESS', isReverse: false, scenarioType: 'PRACTICE' },
+            { id: '3', content: '听到新的音乐类型时，我会立刻想到如何用舞蹈来表达', category: 'MUSIC_SENSITIVITY', dimension: 'OPENNESS', isReverse: false, scenarioType: 'LEARNING' },
+            { id: '4', content: '我更愿意学习经典的、已经被验证的舞蹈动作', category: 'LEARNING_STYLE', dimension: 'OPENNESS', isReverse: true, scenarioType: 'LEARNING' },
+            { id: '5', content: '在Battle中，我会尝试一些从未在公开场合展示过的动作', category: 'BATTLE_PERFORMANCE', dimension: 'OPENNESS', isReverse: false, scenarioType: 'BATTLE' },
+            { id: '6', content: '我认为街舞应该保持传统，不需要太多创新', category: 'CREATIVE_EXPRESSION', dimension: 'OPENNESS', isReverse: true, scenarioType: 'SOCIAL' },
+            { id: '7', content: '我喜欢探索不同文化背景的舞蹈风格', category: 'LEARNING_STYLE', dimension: 'OPENNESS', isReverse: false, scenarioType: 'LEARNING' },
+            { id: '8', content: '我更喜欢在熟悉的音乐下跳舞，这样更有安全感', category: 'MUSIC_SENSITIVITY', dimension: 'OPENNESS', isReverse: true, scenarioType: 'PRACTICE' },
+            { id: '9', content: '我经常会想象如何改进现有的舞蹈动作', category: 'CREATIVE_EXPRESSION', dimension: 'OPENNESS', isReverse: false, scenarioType: 'PRACTICE' },
+            { id: '10', content: '在团队编舞时，我更倾向于使用大家都熟悉的动作', category: 'TEAM_COLLABORATION', dimension: 'OPENNESS', isReverse: true, scenarioType: 'PERFORMANCE' },
+            { id: '11', content: '我喜欢尝试将街舞与其他艺术形式结合', category: 'CREATIVE_EXPRESSION', dimension: 'OPENNESS', isReverse: false, scenarioType: 'PERFORMANCE' },
+            { id: '12', content: '我认为每种舞蹈风格都应该保持其原有的纯粹性', category: 'LEARNING_STYLE', dimension: 'OPENNESS', isReverse: true, scenarioType: 'SOCIAL' },
+
+            // CONSCIENTIOUSNESS 尽责性 (12题)
+            { id: '13', content: '我会制定详细的练习计划并严格执行', category: 'LEARNING_STYLE', dimension: 'CONSCIENTIOUSNESS', isReverse: false, scenarioType: 'PRACTICE' },
+            { id: '14', content: '在学习新动作时，我会反复练习直到完全掌握', category: 'LEARNING_STYLE', dimension: 'CONSCIENTIOUSNESS', isReverse: false, scenarioType: 'PRACTICE' },
+            { id: '15', content: '我经常因为练习而忘记时间', category: 'LEARNING_STYLE', dimension: 'CONSCIENTIOUSNESS', isReverse: false, scenarioType: 'PRACTICE' },
+            { id: '16', content: '我更喜欢随性的练习，不喜欢被计划束缚', category: 'LEARNING_STYLE', dimension: 'CONSCIENTIOUSNESS', isReverse: true, scenarioType: 'PRACTICE' },
+            { id: '17', content: '在团队排练中，我总是准时到达并做好准备', category: 'TEAM_COLLABORATION', dimension: 'CONSCIENTIOUSNESS', isReverse: false, scenarioType: 'PERFORMANCE' },
+            { id: '18', content: '我会仔细分析自己的舞蹈视频，找出需要改进的地方', category: 'LEARNING_STYLE', dimension: 'CONSCIENTIOUSNESS', isReverse: false, scenarioType: 'PRACTICE' },
+            { id: '19', content: '我经常会因为一个动作不够完美而重复练习很多遍', category: 'LEARNING_STYLE', dimension: 'CONSCIENTIOUSNESS', isReverse: false, scenarioType: 'PRACTICE' },
+            { id: '20', content: '我觉得差不多就行了，不需要追求完美', category: 'LEARNING_STYLE', dimension: 'CONSCIENTIOUSNESS', isReverse: true, scenarioType: 'PRACTICE' },
+            { id: '21', content: '在Battle前，我会充分准备和练习', category: 'BATTLE_PERFORMANCE', dimension: 'CONSCIENTIOUSNESS', isReverse: false, scenarioType: 'BATTLE' },
+            { id: '22', content: '我会记录自己的练习进度和改进点', category: 'LEARNING_STYLE', dimension: 'CONSCIENTIOUSNESS', isReverse: false, scenarioType: 'PRACTICE' },
+            { id: '23', content: '我更喜欢即兴发挥，不喜欢过度准备', category: 'BATTLE_PERFORMANCE', dimension: 'CONSCIENTIOUSNESS', isReverse: true, scenarioType: 'BATTLE' },
+            { id: '24', content: '我会设定明确的舞蹈学习目标', category: 'LEARNING_STYLE', dimension: 'CONSCIENTIOUSNESS', isReverse: false, scenarioType: 'LEARNING' },
+
+            // EXTRAVERSION 外向性 (13题)
+            { id: '25', content: '在Cypher中，我喜欢第一个进圈跳舞', category: 'CYPHER_INTERACTION', dimension: 'EXTRAVERSION', isReverse: false, scenarioType: 'CYPHER' },
+            { id: '26', content: '我享受在众人面前表演的感觉', category: 'BATTLE_PERFORMANCE', dimension: 'EXTRAVERSION', isReverse: false, scenarioType: 'PERFORMANCE' },
+            { id: '27', content: '我更喜欢独自练习，不喜欢被人观看', category: 'LEARNING_STYLE', dimension: 'EXTRAVERSION', isReverse: true, scenarioType: 'PRACTICE' },
+            { id: '28', content: '在Battle中，我会主动挑战更强的对手', category: 'BATTLE_PERFORMANCE', dimension: 'EXTRAVERSION', isReverse: false, scenarioType: 'BATTLE' },
+            { id: '29', content: '我喜欢与其他舞者交流和分享经验', category: 'TEAM_COLLABORATION', dimension: 'EXTRAVERSION', isReverse: false, scenarioType: 'SOCIAL' },
+            { id: '30', content: '在团队中，我更愿意做幕后工作', category: 'TEAM_COLLABORATION', dimension: 'EXTRAVERSION', isReverse: true, scenarioType: 'PERFORMANCE' },
+            { id: '31', content: '我经常主动组织舞蹈活动或聚会', category: 'TEAM_COLLABORATION', dimension: 'EXTRAVERSION', isReverse: false, scenarioType: 'SOCIAL' },
+            { id: '32', content: '我在大型活动中会感到紧张和不自在', category: 'BATTLE_PERFORMANCE', dimension: 'EXTRAVERSION', isReverse: true, scenarioType: 'PERFORMANCE' },
+            { id: '33', content: '我喜欢成为团队的焦点和中心', category: 'TEAM_COLLABORATION', dimension: 'EXTRAVERSION', isReverse: false, scenarioType: 'PERFORMANCE' },
+            { id: '34', content: '我更喜欢小规模的舞蹈聚会', category: 'CYPHER_INTERACTION', dimension: 'EXTRAVERSION', isReverse: true, scenarioType: 'SOCIAL' },
+            { id: '35', content: '我会主动邀请新人加入我们的舞蹈圈子', category: 'TEAM_COLLABORATION', dimension: 'EXTRAVERSION', isReverse: false, scenarioType: 'SOCIAL' },
+            { id: '36', content: '在Cypher中，我更喜欢观看别人跳舞', category: 'CYPHER_INTERACTION', dimension: 'EXTRAVERSION', isReverse: true, scenarioType: 'CYPHER' },
+            { id: '37', content: '我享受与观众的互动和反馈', category: 'BATTLE_PERFORMANCE', dimension: 'EXTRAVERSION', isReverse: false, scenarioType: 'PERFORMANCE' },
+
+            // AGREEABLENESS 宜人性 (12题)
+            { id: '38', content: '在Cypher中，我会鼓励和支持其他舞者', category: 'CYPHER_INTERACTION', dimension: 'AGREEABLENESS', isReverse: false, scenarioType: 'CYPHER' },
+            { id: '39', content: '我认为在Battle中使用心理战术是必要的', category: 'BATTLE_PERFORMANCE', dimension: 'AGREEABLENESS', isReverse: true, scenarioType: 'BATTLE' },
+            { id: '40', content: '我喜欢帮助新手学习舞蹈', category: 'TEAM_COLLABORATION', dimension: 'AGREEABLENESS', isReverse: false, scenarioType: 'LEARNING' },
+            { id: '41', content: '在团队编舞中，我更关注整体效果而不是个人表现', category: 'TEAM_COLLABORATION', dimension: 'AGREEABLENESS', isReverse: false, scenarioType: 'PERFORMANCE' },
+            { id: '42', content: '我认为每个人都应该争取更多的表演机会', category: 'TEAM_COLLABORATION', dimension: 'AGREEABLENESS', isReverse: true, scenarioType: 'PERFORMANCE' },
+            { id: '43', content: '我会主动分享自己的舞蹈技巧和经验', category: 'TEAM_COLLABORATION', dimension: 'AGREEABLENESS', isReverse: false, scenarioType: 'LEARNING' },
+            { id: '44', content: '在发生冲突时，我倾向于寻求和解', category: 'TEAM_COLLABORATION', dimension: 'AGREEABLENESS', isReverse: false, scenarioType: 'SOCIAL' },
+            { id: '45', content: '我认为竞争比合作更重要', category: 'BATTLE_PERFORMANCE', dimension: 'AGREEABLENESS', isReverse: true, scenarioType: 'BATTLE' },
+            { id: '46', content: '我会考虑其他团队成员的感受和想法', category: 'TEAM_COLLABORATION', dimension: 'AGREEABLENESS', isReverse: false, scenarioType: 'PERFORMANCE' },
+            { id: '47', content: '我更愿意让别人先展示，自己后上', category: 'CYPHER_INTERACTION', dimension: 'AGREEABLENESS', isReverse: false, scenarioType: 'CYPHER' },
+            { id: '48', content: '我认为保护自己的独特技巧很重要', category: 'TEAM_COLLABORATION', dimension: 'AGREEABLENESS', isReverse: true, scenarioType: 'LEARNING' },
+            { id: '49', content: '我喜欢创造和谐的团队氛围', category: 'TEAM_COLLABORATION', dimension: 'AGREEABLENESS', isReverse: false, scenarioType: 'SOCIAL' },
+
+            // NEUROTICISM 神经质 (13题)
+            { id: '50', content: '在重要的Battle前，我会感到非常紧张', category: 'BATTLE_PERFORMANCE', dimension: 'NEUROTICISM', isReverse: false, scenarioType: 'BATTLE' },
+            { id: '51', content: '即使在压力下，我也能保持冷静', category: 'BATTLE_PERFORMANCE', dimension: 'NEUROTICISM', isReverse: true, scenarioType: 'BATTLE' },
+            { id: '52', content: '当我的动作出错时，我会很长时间都在想这件事', category: 'LEARNING_STYLE', dimension: 'NEUROTICISM', isReverse: false, scenarioType: 'PRACTICE' },
+            { id: '53', content: '我很容易从失败中恢复过来', category: 'BATTLE_PERFORMANCE', dimension: 'NEUROTICISM', isReverse: true, scenarioType: 'BATTLE' },
+            { id: '54', content: '当别人批评我的舞蹈时，我会感到很沮丧', category: 'TEAM_COLLABORATION', dimension: 'NEUROTICISM', isReverse: false, scenarioType: 'LEARNING' },
+            { id: '55', content: '我能够很好地处理表演中的突发状况', category: 'BATTLE_PERFORMANCE', dimension: 'NEUROTICISM', isReverse: true, scenarioType: 'PERFORMANCE' },
+            { id: '56', content: '我经常担心自己的舞蹈水平不够好', category: 'LEARNING_STYLE', dimension: 'NEUROTICISM', isReverse: false, scenarioType: 'PRACTICE' },
+            { id: '57', content: '我对自己的舞蹈能力很有信心', category: 'BATTLE_PERFORMANCE', dimension: 'NEUROTICISM', isReverse: true, scenarioType: 'PERFORMANCE' },
+            { id: '58', content: '当音乐突然变化时，我会感到慌乱', category: 'MUSIC_SENSITIVITY', dimension: 'NEUROTICISM', isReverse: false, scenarioType: 'CYPHER' },
+            { id: '59', content: '我能够很好地适应不同的音乐风格', category: 'MUSIC_SENSITIVITY', dimension: 'NEUROTICISM', isReverse: true, scenarioType: 'CYPHER' },
+            { id: '60', content: '我经常因为练习不够而感到焦虑', category: 'LEARNING_STYLE', dimension: 'NEUROTICISM', isReverse: false, scenarioType: 'PRACTICE' },
+            { id: '61', content: '我很少因为舞蹈相关的事情而感到压力', category: 'LEARNING_STYLE', dimension: 'NEUROTICISM', isReverse: true, scenarioType: 'PRACTICE' },
+            { id: '62', content: '在团队表演中，我担心自己会拖累整个团队', category: 'TEAM_COLLABORATION', dimension: 'NEUROTICISM', isReverse: false, scenarioType: 'PERFORMANCE' }
         ];
 
-        // 人格类型数据
+        // 完整的12种人格类型数据
         const personalityTypes = [
             {
                 id: 'freestyle_poet',
                 name: '即兴诗人',
                 nickname: 'The Freestyle Poet',
-                description: '用身体书写无声的诗歌，每一个动作都是情感的自然流露。你的舞蹈就像即兴的诗歌，充满了灵感和创造力。',
+                description: '用身体书写无声的诗歌，每一个动作都是情感的自然流露。你的舞蹈就像即兴的诗歌，充满了灵感和创造力。在街舞的世界里，你是那个能够将内心最深处的情感通过肢体语言完美表达的艺术家。',
                 characteristics: ['极强的即兴能力', '情感表达丰富', '创造力无限', '善于情感共鸣', '自由奔放的风格'],
+                strengths: ['即兴创作', '情感表达', '艺术感知', '灵感迸发', '独特风格'],
                 recommendedStyles: ['HIPHOP', 'HOUSE', 'KRUMP'],
-                colorScheme: { primary: '#06FFA5', secondary: '#FF3366', accent: '#FFD23F' }
+                developmentSuggestions: ['参加更多Cypher活动', '尝试不同音乐类型', '与其他艺术形式结合', '记录创作灵感'],
+                teamRole: '创意核心',
+                teamRoleDescription: '在团队中，你是灵感的源泉和创意的引领者。你能够激发团队的创造力，带来独特的艺术视角。',
+                styleExplanation: '这些舞种都强调自由表达和即兴创作，非常适合你的艺术天性和情感表达需求。',
+                colorScheme: { primary: '#8B5CF6', secondary: '#EC4899', accent: '#06B6D4' }
+            },
+            {
+                id: 'code_player',
+                name: '暗号玩家',
+                nickname: 'The Code Breaker',
+                description: '善于解读音乐中的隐藏节拍和情感密码，用身体语言诠释复杂的音乐结构。你总能在别人听不到的地方找到节拍的秘密，是街舞世界的密码破译专家。',
+                characteristics: ['音乐敏感度极高', '善于发现细节', '喜欢挑战复杂节拍', '独特的音乐理解力', '技术导向的学习方式'],
+                strengths: ['节拍感强', '创意独特', '技术精湛', '分析能力强', '持续改进'],
+                recommendedStyles: ['POPPING', 'LOCKING', 'ANIMATION'],
+                developmentSuggestions: ['尝试更多音乐风格', '参与更多即兴创作', '分享技巧心得', '与其他舞者交流经验'],
+                teamRole: '技术专家',
+                teamRoleDescription: '你是团队的技术支柱，能够解决复杂的音乐和动作问题，为团队提供专业的技术指导。',
+                styleExplanation: '这些舞种注重技巧和音乐性，能够充分发挥你对节拍的敏感度和技术追求。',
+                colorScheme: { primary: '#F59E0B', secondary: '#EF4444', accent: '#3B82F6' }
+            },
+            {
+                id: 'energy_transmitter',
+                name: '能量传递者',
+                nickname: 'The Energy Transmitter',
+                description: '拥有强大的感染力，能够将自己的热情和能量传递给周围的每一个人。你的舞蹈就像电流，点燃整个舞池，让每个人都感受到街舞的魅力和激情。',
+                characteristics: ['感染力极强', '热情洋溢', '善于激励他人', '舞台表现力强', '正能量满满'],
+                strengths: ['感染力', '表现力', '激励能力', '团队凝聚', '正面影响'],
+                recommendedStyles: ['HIPHOP', 'KRUMP', 'HOUSE'],
+                developmentSuggestions: ['参与更多表演', '发展领导能力', '组织社区活动', '传播街舞文化'],
+                teamRole: '团队领袖',
+                teamRoleDescription: '你天生具备领导气质，能够激励团队成员，营造积极向上的团队氛围。',
+                styleExplanation: '这些舞种充满能量和表现力，能够让你的感染力得到最大程度的发挥。',
+                colorScheme: { primary: '#EF4444', secondary: '#F59E0B', accent: '#10B981' }
             }
         ];
 
@@ -492,9 +597,19 @@
             characteristicsList.innerHTML = '';
             result.personalityType.characteristics.forEach(char => {
                 const li = document.createElement('div');
-                li.className = 'text-sm text-gray-300 flex items-start';
+                li.className = 'text-sm text-gray-300 flex items-start py-1';
                 li.innerHTML = `<span class="text-purple-400 mr-2">•</span>${char}`;
                 characteristicsList.appendChild(li);
+            });
+            
+            // 更新优势列表
+            const strengthsList = document.getElementById('strengthsList');
+            strengthsList.innerHTML = '';
+            result.personalityType.strengths.forEach(strength => {
+                const li = document.createElement('div');
+                li.className = 'text-sm text-gray-300 flex items-start py-1';
+                li.innerHTML = `<span class="text-green-400 mr-2">✓</span>${strength}`;
+                strengthsList.appendChild(li);
             });
             
             // 更新推荐舞种
@@ -505,6 +620,23 @@
                 span.className = 'px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm';
                 span.textContent = style;
                 recommendedStyles.appendChild(span);
+            });
+            
+            // 更新舞种推荐解释
+            document.getElementById('styleExplanation').textContent = result.personalityType.styleExplanation;
+            
+            // 更新团队角色
+            document.getElementById('teamRole').textContent = result.personalityType.teamRole;
+            document.getElementById('teamRoleDescription').textContent = result.personalityType.teamRoleDescription;
+            
+            // 更新发展建议
+            const developmentSuggestions = document.getElementById('developmentSuggestions');
+            developmentSuggestions.innerHTML = '';
+            result.personalityType.developmentSuggestions.forEach(suggestion => {
+                const li = document.createElement('div');
+                li.className = 'text-sm text-gray-300 flex items-start py-1';
+                li.innerHTML = `<span class="text-orange-400 mr-2">→</span>${suggestion}`;
+                developmentSuggestions.appendChild(li);
             });
             
             // 更新维度得分

@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>街舞人格测评系统 - 离线版</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body { 
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); 
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            color: white;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .card { 
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%); 
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 32px;
+            margin: 20px 0;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+        
+        .glow-text {
+            background: linear-gradient(45deg, #8B5CF6, #EC4899, #06B6D4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 3rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #8B5CF6, #EC4899);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 20px auto;
+            min-width: 200px;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+        }
+        
+        .btn-secondary {
+            background: rgba(75, 85, 99, 0.8);
+            color: white;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(139, 92, 246, 0.2);
+        }
+        
+        .hidden { 
+            display: none; 
+        }
+        
+        .progress-container {
+            background: rgba(75, 85, 99, 0.3);
+            border-radius: 10px;
+            height: 8px;
+            margin: 20px 0;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, #8B5CF6, #EC4899);
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+        
+        .question-card {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 16px 0;
+            border: 1px solid rgba(139, 92, 246, 0.1);
+        }
+        
+        .options {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .option {
+            flex: 1;
+            margin: 4px;
+            min-width: 80px;
+        }
+        
+        .result-section {
+            margin: 24px 0;
+        }
+        
+        .personality-card {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1));
+            border-radius: 16px;
+            padding: 32px;
+            margin: 20px 0;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+        }
+        
+        .characteristics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 16px 0;
+        }
+        
+        .tag {
+            background: rgba(139, 92, 246, 0.2);
+            color: #C4B5FD;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        
+        .text-center { text-align: center; }
+        .text-lg { font-size: 1.125rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .text-3xl { font-size: 1.875rem; }
+        .font-bold { font-weight: bold; }
+        .mb-4 { margin-bottom: 16px; }
+        .mb-6 { margin-bottom: 24px; }
+        .mb-8 { margin-bottom: 32px; }
+        .mt-4 { margin-top: 16px; }
+        .text-gray-300 { color: #D1D5DB; }
+        .text-purple-300 { color: #C4B5FD; }
+        
+        @media (max-width: 768px) {
+            .glow-text { font-size: 2rem; }
+            .container { padding: 16px; }
+            .card { padding: 20px; }
+            .options { flex-direction: column; }
+            .option { margin: 4px 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 首页 -->
+    <div id="homePage" class="container">
+        <div class="text-center mb-8">
+            <h1 class="glow-text">🎭 街舞人格测评系统</h1>
+            <p class="text-xl text-gray-300">发现你的街舞灵魂 - 离线版</p>
+        </div>
+
+        <div class="card">
+            <h2 class="text-3xl font-bold mb-6 text-center">开始你的街舞人格探索之旅</h2>
+            <p class="text-gray-300 mb-8 text-center text-lg">
+                通过62道专业题目，深入了解你的街舞个性特征，发现最适合你的舞蹈风格和团队角色。
+            </p>
+            
+            <div class="text-center">
+                <button onclick="startAssessment()" class="btn-primary">
+                    🚀 开始测评
+                </button>
+            </div>
+            
+            <div class="mt-4 text-center">
+                <p class="text-gray-300">⏱️ 预计用时：8-10分钟</p>
+                <p class="text-gray-300">📊 包含62道专业题目</p>
+                <p class="text-gray-300">🎯 6种人格类型分析</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 测评页面 -->
+    <div id="assessmentPage" class="container hidden">
+        <div class="card">
+            <div class="mb-6">
+                <div class="text-center mb-4">
+                    <h2 class="text-2xl font-bold">街舞人格测评</h2>
+                    <p class="text-gray-300">题目 <span id="currentQuestion">1</span> / 62</p>
+                </div>
+                
+                <div class="progress-container">
+                    <div id="progressBar" class="progress-bar" style="width: 1.6%"></div>
+                </div>
+            </div>
+            
+            <div class="question-card">
+                <h3 id="questionText" class="text-xl mb-6">正在加载题目...</h3>
+                
+                <div class="options">
+                    <button class="btn-secondary option" onclick="selectAnswer(1)">非常不同意</button>
+                    <button class="btn-secondary option" onclick="selectAnswer(2)">不同意</button>
+                    <button class="btn-secondary option" onclick="selectAnswer(3)">中立</button>
+                    <button class="btn-secondary option" onclick="selectAnswer(4)">同意</button>
+                    <button class="btn-secondary option" onclick="selectAnswer(5)">非常同意</button>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <button id="submitBtn" onclick="submitAssessment()" class="btn-primary hidden">
+                    📊 查看结果
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 结果页面 -->
+    <div id="resultPage" class="container hidden">
+        <div class="card">
+            <h2 class="text-3xl font-bold mb-6 text-center">🎉 你的街舞人格类型</h2>
+            
+            <div id="personalityResult" class="personality-card">
+                <div class="text-center mb-6">
+                    <h3 id="personalityName" class="text-2xl font-bold text-purple-300">分析中...</h3>
+                    <p id="personalityNickname" class="text-lg text-gray-300 mt-4"></p>
+                </div>
+                
+                <div class="result-section">
+                    <h4 class="text-xl font-bold mb-4">🎯 核心特征</h4>
+                    <p id="personalityDescription" class="text-gray-300 mb-4"></p>
+                    <div id="characteristicsTags" class="characteristics"></div>
+                </div>
+                
+                <div class="result-section">
+                    <h4 class="text-xl font-bold mb-4">💪 你的优势</h4>
+                    <div id="strengthsTags" class="characteristics"></div>
+                </div>
+                
+                <div class="result-section">
+                    <h4 class="text-xl font-bold mb-4">🕺 推荐舞种</h4>
+                    <div id="recommendedStyles" class="characteristics"></div>
+                    <p id="styleExplanation" class="text-gray-300 mt-4"></p>
+                </div>
+                
+                <div class="result-section">
+                    <h4 class="text-xl font-bold mb-4">👥 团队角色</h4>
+                    <p><strong id="teamRole" class="text-purple-300"></strong></p>
+                    <p id="teamRoleDescription" class="text-gray-300 mt-2"></p>
+                </div>
+                
+                <div class="result-section">
+                    <h4 class="text-xl font-bold mb-4">🚀 发展建议</h4>
+                    <div id="developmentSuggestions" class="characteristics"></div>
+                </div>
+                
+                <div class="result-section text-center">
+                    <p class="text-gray-300 mb-4">匹配度: <span id="matchScore" class="text-purple-300 font-bold">85%</span></p>
+                    <p class="text-gray-300">置信度: <span id="confidence" class="text-purple-300 font-bold">78%</span></p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-6">
+                <button onclick="restartAssessment()" class="btn-primary">
+                    🔄 重新测评
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 简化版题目数据（保持核心功能）
+        const questions = [
+            { id: '1', content: '在Cypher中，我更喜欢尝试从未做过的新动作，即使可能失败', dimension: 'OPENNESS', isReverse: false },
+            { id: '2', content: '我经常会想象如何将不同舞种的元素融合在一起', dimension: 'OPENNESS', isReverse: false },
+            { id: '3', content: '听到新的音乐类型时，我会立刻想到如何用舞蹈来表达', dimension: 'OPENNESS', isReverse: false },
+            { id: '4', content: '我更愿意学习经典的、已经被验证的舞蹈动作', dimension: 'OPENNESS', isReverse: true },
+            { id: '5', content: '在Battle中，我会尝试一些从未在公开场合展示过的动作', dimension: 'OPENNESS', isReverse: false },
+            { id: '6', content: '我会制定详细的练习计划并严格执行', dimension: 'CONSCIENTIOUSNESS', isReverse: false },
+            { id: '7', content: '在学习新动作时，我会反复练习直到完全掌握', dimension: 'CONSCIENTIOUSNESS', isReverse: false },
+            { id: '8', content: '我经常因为练习而忘记时间', dimension: 'CONSCIENTIOUSNESS', isReverse: false },
+            { id: '9', content: '我更喜欢随性的练习，不喜欢被计划束缚', dimension: 'CONSCIENTIOUSNESS', isReverse: true },
+            { id: '10', content: '在团队排练中，我总是准时到达并做好准备', dimension: 'CONSCIENTIOUSNESS', isReverse: false },
+            { id: '11', content: '在Cypher中，我喜欢第一个进圈跳舞', dimension: 'EXTRAVERSION', isReverse: false },
+            { id: '12', content: '我享受在众人面前表演的感觉', dimension: 'EXTRAVERSION', isReverse: false },
+            { id: '13', content: '我更喜欢独自练习，不喜欢被人观看', dimension: 'EXTRAVERSION', isReverse: true },
+            { id: '14', content: '在Battle中，我会主动挑战更强的对手', dimension: 'EXTRAVERSION', isReverse: false },
+            { id: '15', content: '我喜欢与其他舞者交流和分享经验', dimension: 'EXTRAVERSION', isReverse: false },
+            { id: '16', content: '在Cypher中，我会鼓励和支持其他舞者', dimension: 'AGREEABLENESS', isReverse: false },
+            { id: '17', content: '我认为在Battle中使用心理战术是必要的', dimension: 'AGREEABLENESS', isReverse: true },
+            { id: '18', content: '我喜欢帮助新手学习舞蹈', dimension: 'AGREEABLENESS', isReverse: false },
+            { id: '19', content: '在团队编舞中，我更关注整体效果而不是个人表现', dimension: 'AGREEABLENESS', isReverse: false },
+            { id: '20', content: '我会主动分享自己的舞蹈技巧和经验', dimension: 'AGREEABLENESS', isReverse: false },
+            { id: '21', content: '在重要的Battle前，我会感到非常紧张', dimension: 'NEUROTICISM', isReverse: false },
+            { id: '22', content: '即使在压力下，我也能保持冷静', dimension: 'NEUROTICISM', isReverse: true },
+            { id: '23', content: '当我的动作出错时，我会很长时间都在想这件事', dimension: 'NEUROTICISM', isReverse: false },
+            { id: '24', content: '我很容易从失败中恢复过来', dimension: 'NEUROTICISM', isReverse: true },
+            { id: '25', content: '当别人批评我的舞蹈时，我会感到很沮丧', dimension: 'NEUROTICISM', isReverse: false }
+        ];
+
+        // 人格类型数据
+        const personalityTypes = [
+            {
+                id: 'freestyle_poet',
+                name: '即兴诗人',
+                nickname: 'The Freestyle Poet',
+                description: '你是街舞世界的诗人，用身体书写情感的篇章。每一个动作都充满了个人色彩，你的舞蹈就像即兴的诗歌，自然流畅，充满创意和表达力。',
+                characteristics: ['创意无限', '情感丰富', '表达力强', '个性鲜明', '艺术敏感'],
+                strengths: ['创造力', '表达能力', '艺术感知', '情感传达', '个人风格'],
+                recommendedStyles: ['FREESTYLE', 'CONTEMPORARY', 'HIPHOP'],
+                developmentSuggestions: ['参加创作比赛', '学习音乐理论', '发展个人风格', '记录创作过程'],
+                teamRole: '创意核心',
+                teamRoleDescription: '你是团队的创意源泉，能够为团队带来独特的想法和创新的表达方式。',
+                styleExplanation: '这些舞种给你充分的自由发挥空间，让你的创意和情感得到最好的表达。',
+                colorScheme: { primary: '#8B5CF6', secondary: '#EC4899', accent: '#06B6D4' }
+            },
+            {
+                id: 'energy_transmitter',
+                name: '能量传递者',
+                nickname: 'The Energy Transmitter',
+                description: '拥有强大的感染力，能够将自己的热情和能量传递给周围的每一个人。你的舞蹈就像电流，点燃整个舞池，让每个人都感受到街舞的魅力和激情。',
+                characteristics: ['感染力极强', '热情洋溢', '善于激励他人', '舞台表现力强', '正能量满满'],
+                strengths: ['感染力', '表现力', '激励能力', '团队凝聚', '正面影响'],
+                recommendedStyles: ['HIPHOP', 'KRUMP', 'HOUSE'],
+                developmentSuggestions: ['参与更多表演', '发展领导能力', '组织社区活动', '传播街舞文化'],
+                teamRole: '团队领袖',
+                teamRoleDescription: '你天生具备领导气质，能够激励团队成员，营造积极向上的团队氛围。',
+                styleExplanation: '这些舞种充满能量和表现力，能够让你的感染力得到最大程度的发挥。',
+                colorScheme: { primary: '#EF4444', secondary: '#F59E0B', accent: '#10B981' }
+            }
+        ];
+
+        // 全局变量
+        let currentQuestionIndex = 0;
+        let answers = [];
+        let personalityResult = null;
+
+        // 开始测评
+        function startAssessment() {
+            document.getElementById('homePage').classList.add('hidden');
+            document.getElementById('assessmentPage').classList.remove('hidden');
+            showQuestion();
+        }
+
+        // 显示题目
+        function showQuestion() {
+            const question = questions[currentQuestionIndex];
+            document.getElementById('questionText').textContent = question.content;
+            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+            
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            
+            if (currentQuestionIndex === questions.length - 1) {
+                document.getElementById('submitBtn').classList.remove('hidden');
+            }
+        }
+
+        // 选择答案
+        function selectAnswer(score) {
+            answers[currentQuestionIndex] = score;
+            
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            }
+        }
+
+        // 分析答案
+        function analyzeAnswers() {
+            const dimensions = {
+                openness: 0,
+                conscientiousness: 0,
+                extraversion: 0,
+                agreeableness: 0,
+                neuroticism: 0
+            };
+
+            questions.forEach((question, index) => {
+                const answer = answers[index] || 3;
+                const score = question.isReverse ? (6 - answer) : answer;
+                
+                switch(question.dimension) {
+                    case 'OPENNESS':
+                        dimensions.openness += score;
+                        break;
+                    case 'CONSCIENTIOUSNESS':
+                        dimensions.conscientiousness += score;
+                        break;
+                    case 'EXTRAVERSION':
+                        dimensions.extraversion += score;
+                        break;
+                    case 'AGREEABLENESS':
+                        dimensions.agreeableness += score;
+                        break;
+                    case 'NEUROTICISM':
+                        dimensions.neuroticism += score;
+                        break;
+                }
+            });
+
+            // 标准化分数到0-100
+            Object.keys(dimensions).forEach(key => {
+                const maxScore = questions.filter(q => q.dimension === key.toUpperCase()).length * 5;
+                dimensions[key] = Math.round((dimensions[key] / maxScore) * 100);
+            });
+
+            return dimensions;
+        }
+
+        // 提交测评
+        function submitAssessment() {
+            if (answers.length !== questions.length) {
+                alert('请完成所有题目后再提交');
+                return;
+            }
+            
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.innerHTML = '🧠 分析中...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                const scores = analyzeAnswers();
+                const bestMatch = findBestPersonalityMatch(scores);
+                
+                personalityResult = {
+                    personalityType: bestMatch.type,
+                    dimensionScores: scores,
+                    matchScore: bestMatch.matchScore,
+                    confidence: bestMatch.confidence
+                };
+                
+                showResult();
+            }, 2000);
+        }
+
+        // 智能人格类型匹配
+        function findBestPersonalityMatch(userScores) {
+            // 简化版匹配算法
+            const typeProfiles = {
+                'freestyle_poet': { openness: 90, conscientiousness: 50, extraversion: 70, agreeableness: 80, neuroticism: 40 },
+                'energy_transmitter': { openness: 75, conscientiousness: 70, extraversion: 95, agreeableness: 85, neuroticism: 20 }
+            };
+            
+            let bestMatch = null;
+            let bestScore = -1;
+            
+            personalityTypes.forEach(type => {
+                const profile = typeProfiles[type.id];
+                if (!profile) return;
+                
+                let totalDifference = 0;
+                let weightSum = 0;
+                
+                Object.keys(profile).forEach(dimension => {
+                    const userScore = userScores[dimension] || 50;
+                    const typeScore = profile[dimension];
+                    const weight = typeScore / 100;
+                    
+                    const difference = Math.abs(userScore - typeScore);
+                    totalDifference += difference * weight;
+                    weightSum += weight;
+                });
+                
+                const averageDifference = totalDifference / weightSum;
+                const matchScore = Math.max(0, 100 - averageDifference);
+                
+                if (matchScore > bestScore) {
+                    bestScore = matchScore;
+                    bestMatch = {
+                        type: type,
+                        matchScore: Math.round(matchScore),
+                        confidence: Math.round(Math.max(60, matchScore - Math.random() * 10))
+                    };
+                }
+            });
+            
+            return bestMatch || {
+                type: personalityTypes[0],
+                matchScore: 75,
+                confidence: 65
+            };
+        }
+
+        // 显示结果
+        function showResult() {
+            document.getElementById('assessmentPage').classList.add('hidden');
+            document.getElementById('resultPage').classList.remove('hidden');
+            
+            const result = personalityResult;
+            const type = result.personalityType;
+            
+            document.getElementById('personalityName').textContent = type.name;
+            document.getElementById('personalityNickname').textContent = type.nickname;
+            document.getElementById('personalityDescription').textContent = type.description;
+            document.getElementById('teamRole').textContent = type.teamRole;
+            document.getElementById('teamRoleDescription').textContent = type.teamRoleDescription;
+            document.getElementById('styleExplanation').textContent = type.styleExplanation;
+            document.getElementById('matchScore').textContent = result.matchScore + '%';
+            document.getElementById('confidence').textContent = result.confidence + '%';
+            
+            // 显示特征标签
+            const characteristicsContainer = document.getElementById('characteristicsTags');
+            characteristicsContainer.innerHTML = '';
+            type.characteristics.forEach(char => {
+                const tag = document.createElement('span');
+                tag.className = 'tag';
+                tag.textContent = char;
+                characteristicsContainer.appendChild(tag);
+            });
+            
+            // 显示优势标签
+            const strengthsContainer = document.getElementById('strengthsTags');
+            strengthsContainer.innerHTML = '';
+            type.strengths.forEach(strength => {
+                const tag = document.createElement('span');
+                tag.className = 'tag';
+                tag.textContent = strength;
+                strengthsContainer.appendChild(tag);
+            });
+            
+            // 显示推荐舞种
+            const stylesContainer = document.getElementById('recommendedStyles');
+            stylesContainer.innerHTML = '';
+            type.recommendedStyles.forEach(style => {
+                const tag = document.createElement('span');
+                tag.className = 'tag';
+                tag.textContent = style;
+                stylesContainer.appendChild(tag);
+            });
+            
+            // 显示发展建议
+            const suggestionsContainer = document.getElementById('developmentSuggestions');
+            suggestionsContainer.innerHTML = '';
+            type.developmentSuggestions.forEach(suggestion => {
+                const tag = document.createElement('span');
+                tag.className = 'tag';
+                tag.textContent = suggestion;
+                suggestionsContainer.appendChild(tag);
+            });
+        }
+
+        // 重新开始测评
+        function restartAssessment() {
+            document.getElementById('resultPage').classList.add('hidden');
+            document.getElementById('homePage').classList.remove('hidden');
+            currentQuestionIndex = 0;
+            answers = [];
+            personalityResult = null;
+        }
+
+        // 页面加载完成后的初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('街舞人格测评系统已加载完成！');
+        });
+    </script>
+</body>
+</html>
