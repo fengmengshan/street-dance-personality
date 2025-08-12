@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-neutral-dark text-neutral-light font-body;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* 现代风格按钮 */
+  .btn-graffiti {
+    @apply relative px-6 py-3 font-semibold text-white rounded-xl;
+    @apply bg-gradient-to-r from-primary-purple to-primary-indigo;
+    @apply shadow-lg transform transition-all duration-300;
+    @apply hover:scale-105 hover:shadow-xl active:scale-95;
+    @apply border border-primary-purple/20;
+  }
+
+  .btn-graffiti:before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-secondary-pink to-secondary-cyan;
+    @apply opacity-0 transition-opacity duration-300 rounded-xl;
+  }
+
+  .btn-graffiti:hover:before {
+    @apply opacity-100;
+  }
+
+  .btn-graffiti span {
+    @apply relative z-10;
+  }
+
+  /* 发光文字效果 */
+  .text-neon {
+    @apply text-transparent bg-clip-text;
+    background-image: linear-gradient(45deg, #8B5CF6, #EC4899, #06B6D4);
+    text-shadow: 
+      0 0 10px rgba(139, 92, 246, 0.5),
+      0 0 20px rgba(236, 72, 153, 0.3),
+      0 0 30px rgba(6, 182, 212, 0.2);
+    animation: glow-pulse 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow-pulse {
+    0% {
+      filter: brightness(1) saturate(1);
+    }
+    100% {
+      filter: brightness(1.2) saturate(1.3);
+    }
+  }
+
+  /* 现代卡片样式 */
+  .card-street {
+    @apply bg-neutral-medium/80 backdrop-blur-sm border border-primary-purple/20 rounded-2xl;
+    @apply shadow-xl transform transition-all duration-300;
+    @apply hover:scale-[1.02] hover:shadow-2xl hover:border-primary-purple/40;
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+  }
+
+  /* 进度圆圈 */
+  .progress-circle {
+    @apply relative w-16 h-16 rounded-full;
+    background: conic-gradient(from 0deg, #8B5CF6 0deg, #EC4899 90deg, #1E293B 90deg);
+  }
+
+  .progress-circle::before {
+    content: '';
+    @apply absolute inset-2 bg-neutral-dark rounded-full;
+  }
+
+  /* 现代输入框 */
+  .input-graffiti {
+    @apply w-full px-4 py-3 bg-neutral-medium/50 backdrop-blur-sm border border-primary-purple/30;
+    @apply text-neutral-light placeholder-neutral-gray rounded-xl;
+    @apply focus:outline-none focus:border-primary-purple focus:ring-2 focus:ring-primary-purple/20;
+    @apply transition-all duration-300;
+  }
+
+  /* 街舞动画 */
+  .dance-bounce {
+    animation: dance-bounce 1s ease-in-out infinite;
+  }
+
+  @keyframes dance-bounce {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-10px) rotate(-2deg); }
+    50% { transform: translateY(-5px) rotate(1deg); }
+    75% { transform: translateY(-15px) rotate(-1deg); }
+  }
+
+  /* 加载动画 */
+  .loading-spin {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* 渐变背景 */
+  .bg-street-gradient {
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%);
+  }
+
+  /* 响应式网格 */
+  .grid-responsive {
+    @apply grid gap-6;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}

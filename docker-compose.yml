@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=file:./prod.db
+      - JWT_SECRET=street-dance-super-secret-production-key-2024
+      - FRONTEND_URL=http://localhost:3000
+    volumes:
+      - ./backend/prisma:/app/prisma
+      - backend_data:/app/prisma
+    command: sh -c "npx prisma db push && npx prisma db seed && npm start"
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    environment:
+      - VITE_API_URL=http://localhost:8000/api
+
+volumes:
+  backend_data:

@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  username  String?  @unique
+  email     String?  @unique
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  assessments Assessment[]
+
+  @@map("users")
+}
+
+model Question {
+  id           String   @id @default(cuid())
+  content      String
+  category     String
+  dimension    String
+  isReverse    Boolean  @default(false) @map("is_reverse")
+  danceStyles  String   @map("dance_styles")
+  scenarioType String   @map("scenario_type")
+  orderIndex   Int      @map("order_index")
+
+  answers Answer[]
+
+  @@map("questions")
+}
+
+model Assessment {
+  id              String   @id @default(cuid())
+  userId          String?  @map("user_id")
+  personalityType String?  @map("personality_type")
+  dimensionScores String   @map("dimension_scores")
+  completedAt     DateTime @default(now()) @map("completed_at")
+  isShared        Boolean  @default(false) @map("is_shared")
+
+  user    User?    @relation(fields: [userId], references: [id])
+  answers Answer[]
+
+  @@map("assessments")
+}
+
+model Answer {
+  id           String   @id @default(cuid())
+  assessmentId String   @map("assessment_id")
+  questionId   String   @map("question_id")
+  score        Int
+  answeredAt   DateTime @default(now()) @map("answered_at")
+
+  assessment Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  question   Question   @relation(fields: [questionId], references: [id])
+
+  @@map("answers")
+}
+
